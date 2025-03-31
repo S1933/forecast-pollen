@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: ./pollen-backend
+    container_name: pollen-backend-app
+    restart: unless-stopped
+    env_file:
+      - ./pollen-backend/.env
+    expose:
+      - "3000"
+    networks:
+      - pollen-network
+    volumes:
+      - ./pollen-backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./pollen-frontend
+    container_name: pollen-frontend-nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - pollen-network
+    volumes:
+      - ./pollen-frontend:/app
+      - /app/node_modules
+
+networks:
+  pollen-network:
+    driver: bridge

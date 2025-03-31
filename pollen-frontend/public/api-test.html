@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API Pollen</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Test de l'API Pollen</h1>
+    <button id="testButton">Tester l'API</button>
+    <div id="result" style="margin-top: 20px; white-space: pre-wrap;"></div>
+
+    <script>
+        document.getElementById('testButton').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = 'Chargement...';
+
+            try {
+                const response = await axios.get('/api/pollen/forecast', {
+                    params: { lat: 48.8566, lng: 2.3522, days: 1 }
+                });
+
+                resultDiv.textContent = 'Succès!\n\n' + JSON.stringify(response.data, null, 2);
+            } catch (error) {
+                resultDiv.textContent = 'Erreur: ' + error.message + '\n\n';
+
+                if (error.response) {
+                    resultDiv.textContent += 'Données: ' + JSON.stringify(error.response.data, null, 2);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

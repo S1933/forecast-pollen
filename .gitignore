@@ -1,0 +1,7 @@
+# Fichiers de build React
+/pollen-frontend/build/
+/pollen-frontend/node_modules/
+
+# Fichiers de build Node.js
+/pollen-backend/node_modules/
+/pollen-backend/.env
